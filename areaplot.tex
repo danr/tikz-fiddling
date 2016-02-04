@@ -1,7 +1,10 @@
 
+\newcommand\areaplot[3]{
+
 \pgfplotsset{every axis legend/.append style={
   at={(-0.15,0)},
-  anchor=south east}}
+  anchor=south east,
+  reverse legend}}
 
 \begin{tikzpicture}
     \begin{semilogxaxis}[
@@ -12,18 +15,19 @@
         ylabel=tool distribution,
         yticklabel={$\pgfmathprintnumber{\tick}$\%},
         xlabel=time (s),
+        xmin = 1,
         enlarge x limits=false,
         ]
     \addplot
-        table[x=t, y expr=100*\thisrow{me}/\thisrow{sum}] {area.dat}
+        table[x=t, y expr=100*\thisrow{me}/\thisrow{sum}] {#1}
         \closedcycle;
     \addplot
-        table[x=t, y expr=100*\thisrow{us}/\thisrow{sum}] {area.dat}
+        table[x=t, y expr=100*\thisrow{us}/\thisrow{sum}] {#1}
         \closedcycle;
     \addplot
-        table[x=t, y expr=100*\thisrow{them}/\thisrow{sum}] {area.dat}
+        table[x=t, y expr=100*\thisrow{them}/\thisrow{sum}] {#1}
         \closedcycle;
-    \legend{me,us,them}
+    \legend{#2,both,#3}
     \end{semilogxaxis}
     \begin{semilogxaxis}[
         axis y line=right,
@@ -32,7 +36,25 @@
         axis x line=none,
         enlarge x limits=false]
     \addplot [black, thick]
-        table[x=t, y=sum, mark=none] {area.dat};
+        table[x=t, y=sum, mark=none] {#1};
     \end{semilogxaxis}
 \end{tikzpicture}
 
+}
+
+\begin{centering}
+symbo vs crappy
+\areaplot{symbo_crappy.dat}{symbo}{crappy}
+symbo vs smten
+\areaplot{symbo_smten.dat}{symbo}{smten}
+
+\newpage
+symbo vs lazy smallcheck
+\areaplot{symbo_lazysc.dat}{symbo}{lazy sc}
+crappy vs lazy smallcheck
+\areaplot{crappy_lazysc.dat}{crappy}{lazy sc}
+
+\newpage
+symbo vs feat
+\areaplot{symbo_feat.dat}{symbo}{feat}
+\end{centering}
