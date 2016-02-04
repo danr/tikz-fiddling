@@ -1,0 +1,42 @@
+
+\newcommand{\scatterplot}[4]{
+
+\begin{tikzpicture}
+\begin{axis}[
+  xlabel={#1},
+  ylabel={#2},
+  enlargelimits=false,
+  axis lines=left,
+  grid = major,
+  xmode = log,
+  ymode = log,
+  xmin = #4,
+  xmax = 60,
+  ymin = #4,
+  ymax = 60,
+  grid style={dashed, gray!30},
+  width=10cm,
+  height=10cm,
+]
+
+\addplot+[
+	only marks,
+%	scatter,
+	mark size=1pt,
+    black,
+]
+table[x=x, y=y]
+	{#3};
+
+\draw[-, gray!30] (-7,-7) -- (5,5);
+
+\end{axis}
+\end{tikzpicture}
+}
+
+% \scatterplot{feat}{hbmc}{feat-vs-hbmc}{0.002}
+
+% \scatterplot{Lazy SmallCheck}{hbmc}{lazy-vs-hbmc}{0.007}
+
+% \scatterplot{hbmc without memoisation}{hbmc with memoisation}{hbmc-wwo-memo}{0.01}
+

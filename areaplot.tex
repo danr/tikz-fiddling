@@ -1,0 +1,38 @@
+
+\pgfplotsset{every axis legend/.append style={
+  at={(-0.15,0)},
+  anchor=south east}}
+
+\begin{tikzpicture}
+    \begin{semilogxaxis}[
+        stack plots=y,
+        area style,
+        ymin=0,
+        ymax=100,
+        ylabel=tool distribution,
+        yticklabel={$\pgfmathprintnumber{\tick}$\%},
+        xlabel=time (s),
+        enlarge x limits=false,
+        ]
+    \addplot
+        table[x=t, y expr=100*\thisrow{me}/\thisrow{sum}] {area.dat}
+        \closedcycle;
+    \addplot
+        table[x=t, y expr=100*\thisrow{us}/\thisrow{sum}] {area.dat}
+        \closedcycle;
+    \addplot
+        table[x=t, y expr=100*\thisrow{them}/\thisrow{sum}] {area.dat}
+        \closedcycle;
+    \legend{me,us,them}
+    \end{semilogxaxis}
+    \begin{semilogxaxis}[
+        axis y line=right,
+        ylabel=solved problems,
+        ymin=0,
+        axis x line=none,
+        enlarge x limits=false]
+    \addplot [black, thick]
+        table[x=t, y=sum, mark=none] {area.dat};
+    \end{semilogxaxis}
+\end{tikzpicture}
+
