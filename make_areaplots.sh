@@ -5,3 +5,4 @@ ghc --make Areaplot.hs
 ./Areaplot results/hbmc-normal_-q_ results/_lazysc_ > crappy_lazysc.dat
 ./Areaplot results/hbmc-symbo_-q_ results/_feat_ > symbo_feat.dat
 ./Areaplot results/hbmc-symbo_-q_ results/smten-runner_ > symbo_smten.dat
+./Areaplot results/hbmc-normal_-q_ results/smten-runner_ > crappy_smten.dat

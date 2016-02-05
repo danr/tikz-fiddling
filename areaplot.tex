@@ -1,9 +1,16 @@
 
 \newcommand\areaplot[3]{
 
+% \pgfplotsset{every axis legend/.append style={
+%   at={(-0.15,0)},
+%   anchor=south east,
+%   cells={anchor=west},
+%   reverse legend}}
+
 \pgfplotsset{every axis legend/.append style={
-  at={(-0.15,0)},
-  anchor=south east,
+  at={(0.5,-0.20)},
+  anchor=north,
+  legend columns=-1,
   reverse legend}}
 
 \begin{tikzpicture}
@@ -33,6 +40,7 @@
         axis y line=right,
         ylabel=solved problems,
         ymin=0,
+        ymax=400,
         axis x line=none,
         enlarge x limits=false]
     \addplot [black, thick]
@@ -42,19 +50,79 @@
 
 }
 
+% For this assignment then, I ask you to do two things. First, supply the
+% ‘storyboard’ of data illustrations of your research for a specific article and
+% then the main idea of the analysis. Then, I ask you to use any one illustration
+% of data from the research as if you were using it in a research article or a
+% conference paper.
+%
+% So, you supply the illustration, its caption, and the data commentary required
+% for it to be effective in an article. If it is a figure or table you have used
+% before or if it is new data matters less as long as you provide the data
+% commentary necessary for the data to communicate effectively.
+%
+% The assignment is supposed to be useful to you and you must use it as you see
+% fit, but it is intended as a unit that can serve as an example for you in
+% future writing if you cannot use it immediately in your current writing.
+%
+% \begin{centering}
+% symbo vs crappy
+% \areaplot{symbo_crappy.dat}{symbo}{crappy}
+% symbo vs feat
+% \areaplot{symbo_feat.dat}{symbo}{feat}
+%
+% \newpage
+% symbo vs smten
+% \areaplot{symbo_smten.dat}{symbo}{smten}
+% crappy vs smten
+% \areaplot{crappy_smten.dat}{crappy}{smten}
+%
+% \newpage
+% symbo vs lazy smallcheck
+% \areaplot{symbo_lazysc.dat}{symbo}{lazy sc}
+% crappy vs lazy smallcheck
+% \areaplot{crappy_lazysc.dat}{crappy}{lazy sc}
+% \end{centering}
+
+\subsection*{Data commentary}
+\vspace{-0.5\baselineskip}
+\emph{Dan Rosén}
+\vspace{0.5\baselineskip}
+
+Figures~\ref{vs-smten} and ~\ref{vs-lazysc}
+compares our tool with smten and LazySmallCheck, respectivelly.
+%
+In the experiments, the completion runtime was recorded
+for each tool and benchmark in the test suite.
+At any given time there are some benchmarks solved
+by both tools and some only solved by one of them.
+The graphs are divided into these three segments,
+each of them indicating this distribution proportionally.
+There is also an overlayed line telling how many benchmarks were solved.
+Time on the x-axis is logarithmic and goes from 1 to 60 seconds.
+
+In the comparison with smten in Figure~\ref{vs-smten}
+we see that HBMC solves a bigger chunk of benchmarks than smten.
+The numbers of benchmarks these solvers solve together are less than 300.
+When comparing to LazySmallCheck in Figure~\ref{vs-lazysc},
+they together solve more than 300 benchmarks.
+HBMC's sole contribution is initially not so significant,
+but its share over time increases significantly.
+This indicates that HBMC is an important contribution
+to solving the most difficult and challenging benchmarks.
+
+\begin{figure}[H]
 \begin{centering}
-symbo vs crappy
-\areaplot{symbo_crappy.dat}{symbo}{crappy}
-symbo vs smten
-\areaplot{symbo_smten.dat}{symbo}{smten}
-
-\newpage
-symbo vs lazy smallcheck
-\areaplot{symbo_lazysc.dat}{symbo}{lazy sc}
-crappy vs lazy smallcheck
-\areaplot{crappy_lazysc.dat}{crappy}{lazy sc}
-
-\newpage
-symbo vs feat
-\areaplot{symbo_feat.dat}{symbo}{feat}
+\areaplot{crappy_smten.dat}{HBMC}{smten}
 \end{centering}
+\caption{HBMC compared with smten. \label{vs-smten}}
+\end{figure}
+
+\begin{figure}[H]
+\begin{centering}
+\areaplot{crappy_lazysc.dat}{HBMC}{LazySmallCheck}
+\end{centering}
+\caption{HBMC compared with LazySmallCheck. \label{vs-lazysc}}
+\end{figure}
+
+
